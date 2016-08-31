@@ -5,6 +5,8 @@ Changes for Crate
 Unreleased
 ==========
 
+ - Use the list of mountains in the Alps to select the random node name.
+
  - Fix: Error was thrown in case of primary key bulk delete statement
    with null bulk arguments.
 
