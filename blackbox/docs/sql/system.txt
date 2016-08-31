@@ -20,6 +20,7 @@ real-time information about the cluster, its nodes and their shards:
  * :ref:`sys.repositories <sys-repositories>`
  * :ref:`sys.shards <sys-shards>`
  * :ref:`sys.snapshots <sys-snapshots>`
+ * :ref:`sys.summits <sys-summits>`
 
 
 .. _sys-cluster:
@@ -1255,5 +1256,14 @@ The mapping follows the following pattern:
 
     cr> DROP REPOSITORY "my_repo";
     DROP OK, 1 row affected (... sec)
+
+
+.. _sys-summits:
+
+Summits
+=======
+The ``sys.summits`` table contains the information required for the node names
+generation.
+
 
 .. _configuration: ../configuration.html
