@@ -26,10 +26,7 @@ import com.google.common.collect.Lists;
 import io.crate.breaker.RamAccountingContext;
 import io.crate.planner.projection.Projection;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * A chain of connected projectors rows will flow through.
@@ -70,7 +67,10 @@ public class FlatProjectorChain {
                                                             Collection<? extends Projection> projections,
                                                             RowReceiver downstream,
                                                             UUID jobId) {
-        List<RowReceiver> rowReceivers = new ArrayList<>();
+        if (projections.isEmpty()) {
+            return new FlatProjectorChain(Collections.singletonList(downstream));
+        }
+        List<RowReceiver> rowReceivers = new ArrayList<>(projections.size() + 1);
         Projector previousProjector = null;
         for (Projection projection : projections) {
             Projector projector = projectorFactory.create(projection, ramAccountingContext, jobId);
