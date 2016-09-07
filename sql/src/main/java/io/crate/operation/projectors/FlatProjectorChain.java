@@ -24,6 +24,7 @@ package io.crate.operation.projectors;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import io.crate.breaker.RamAccountingContext;
+import io.crate.metadata.RowGranularity;
 import io.crate.planner.projection.Projection;
 
 import java.util.*;
@@ -73,6 +74,9 @@ public class FlatProjectorChain {
         List<RowReceiver> rowReceivers = new ArrayList<>(projections.size() + 1);
         Projector previousProjector = null;
         for (Projection projection : projections) {
+            assert projection.requiredGranularity().ordinal() < RowGranularity.SHARD.ordinal()
+                : "FlatProjectorChain doesn't work with projections which require a Shard context";
+
             Projector projector = projectorFactory.create(projection, ramAccountingContext, jobId);
             rowReceivers.add(projector);
             if (previousProjector != null) {

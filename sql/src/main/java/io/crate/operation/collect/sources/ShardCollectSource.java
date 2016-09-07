@@ -89,9 +89,6 @@ import java.util.concurrent.ExecutorService;
  * - Ordered with one Collector that has 1+ child shard collectors
  *   This single collector is switching between the child-collectors to provide a correct sorted result
  *
- *   This one collector MUST emit rows synchronous.
- *   (It may still use threading for some operations as long as it isn't using the RowReceiver concurrently)
- *
  *     +---------------------+
  *     | MultiShardCollector |
  *     |   S1   S2           |
